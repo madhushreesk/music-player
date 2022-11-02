@@ -1,13 +1,32 @@
 import React, { useEffect, useRef, useState } from "react";
 import { songsdata } from "./Player/audio";
 import Player from "./Player/Player";
+import "./App.css";
 
 const App = () => {
   const [songs, setSongs] = useState(songsdata);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentSong, setCurrentSong] = useState(songsdata[0]);
+  const [randomColor, setRandmColor] = useState("#ffffff");
+
+  // background color
 
   const audioElem = useRef();
+
+  const getRandomColor = () => {
+    var letters = "0123456789ABCDEF";
+    var color = "#";
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  };
+
+  useState(() => {
+    setInterval(() => {
+      setRandmColor(getRandomColor());
+    }, 2000);
+  }, []);
 
   useEffect(() => {
     if (isPlaying) {
@@ -29,17 +48,19 @@ const App = () => {
   };
 
   return (
-    <div className="App">
-      <audio src={currentSong.url} ref={audioElem} onTimeUpdate={onPlaying} />
-      <Player
-        songs={songs}
-        setSongs={setSongs}
-        isPlaying={isPlaying}
-        setIsPlaying={setIsPlaying}
-        audioElem={audioElem}
-        currentSong={currentSong}
-        setCurrentSong={setCurrentSong}
-      />
+    <div className="App" style={{ background: randomColor, opacity: 0.6 }}>
+      <div>
+        <audio src={currentSong.url} ref={audioElem} onTimeUpdate={onPlaying} />
+        <Player
+          songs={songs}
+          setSongs={setSongs}
+          isPlaying={isPlaying}
+          setIsPlaying={setIsPlaying}
+          audioElem={audioElem}
+          currentSong={currentSong}
+          setCurrentSong={setCurrentSong}
+        />
+      </div>
     </div>
   );
 };
