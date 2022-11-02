@@ -1,6 +1,6 @@
 import React from 'react'
 import { useRef } from 'react';
-import {BsFillPlayCircleFill, BsFillPauseCircleFill, BsFillSkipStartCircleFill, BsSkipEndCircleFill, BsFillSkipEndCircleFill} from 'react-icons/bs';
+import {BsFillPlayCircleFill, BsFillPauseCircleFill, BsFillSkipStartCircleFill, BsFillSkipEndCircleFill} from 'react-icons/bs';
 import './player.scss';
 const Player = ({ songs, setSongs, isPlaying, setIsPlaying, audioElem, currentSong,setCurrentSong }) => {
     
@@ -18,7 +18,7 @@ const Player = ({ songs, setSongs, isPlaying, setIsPlaying, audioElem, currentSo
     }
 
     const skipBack = () => {
-        const index = songs.findIndex((x) => x.title == currentSong.title)
+        const index = songs.findIndex((x) => x.title === currentSong.title)
         if (index === 0) {
             setCurrentSong(songs[songs.length - 1]);
         } else {
@@ -29,7 +29,7 @@ const Player = ({ songs, setSongs, isPlaying, setIsPlaying, audioElem, currentSo
     }
 
     const skiptoNext = () => {
-        const index = songs.findIndex((x) => x.title == currentSong.title)
+        const index = songs.findIndex((x) => x.title === currentSong.title)
         if (index === songs.length-1) {
             setCurrentSong(songs[0]);
         } else {
